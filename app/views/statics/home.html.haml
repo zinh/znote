@@ -1,4 +1,4 @@
-.container-fluid
+.container-fluid{'ng-controller' => 'noteCtrl'}
   .col-xs-2
     %nav.navbar.navbar-default
       .container-fluid
@@ -11,7 +11,7 @@
               %a
                 New
     .container-fluid
-      %input.search{placeholder: "Search here"}
+      %input.search{placeholder: "Search here", 'ng-model' => 'searchBox'}
     .container-fluid#note-content
       column 01
   .col-xs-10
@@ -30,4 +30,4 @@
               %a
                 My Account
     .container-fluid#note-content
-      column 01
+      {{ searchBox  }}
