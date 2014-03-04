@@ -1,0 +1,33 @@
+.container-fluid
+  .col-xs-2
+    %nav.navbar.navbar-default
+      .container-fluid
+        .navbar-header
+          .navbar-brand
+            ZNote
+        .collapse.navbar-collapse
+          %ul.nav.navbar-nav.navbar-right
+            %li
+              %a
+                New
+    .container-fluid
+      %input.search{placeholder: "Search here"}
+    .container-fluid#note-content
+      column 01
+  .col-xs-10
+    %nav.navbar.navbar-default
+      .container-fluid
+        .collapse.navbar-collapse
+          %ul.nav.navbar-nav.navbar-left
+            %li
+              %a
+                Edit
+            %li
+              %a
+                Delete
+          %ul.nav.navbar-nav.navbar-right
+            %li
+              %a
+                My Account
+    .container-fluid#note-content
+      column 01
