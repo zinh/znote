@@ -18,3 +18,4 @@ log/*
 .ruby-gemset
 .ruby-version
 database.yml
+*.swp
