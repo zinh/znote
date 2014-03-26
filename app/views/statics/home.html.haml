@@ -1,5 +1,5 @@
 .container-fluid
-  .col-xs-2{'ng-controller' => 'searchCtrl'}
+  .col-xs-2
     %nav.navbar.navbar-default
       .container-fluid
         .navbar-header
@@ -11,10 +11,9 @@
               %a
                 New
     .container-fluid
-      %input.search{placeholder: "Search here", 'ng-model' => 'searchBox'}
+      %input.search
     .container-fluid#note-content
-      {{ searchBox }}
-  .col-xs-10{'ng-controller' => 'noteCtrl'}
+  .col-xs-10
     %nav.navbar.navbar-default
       .container-fluid
         .collapse.navbar-collapse
@@ -30,4 +29,4 @@
               %a
                 My Account
     .container-fluid#note-content
-      Note content
+      <div ng-view></div>
