@@ -4,7 +4,7 @@ class NotesController < ApplicationController
     # TODO: assign user and title
     note = Note.new(user_id: 1, title: 'Test title', content: content)
     if note.save
-      render text: "success", layout: false
+      render json: {id: note.id}
     else
       render text: "failed", status: 403, layout: false
     end

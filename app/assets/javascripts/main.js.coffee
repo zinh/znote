@@ -21,11 +21,11 @@
       $scope.content = data.content
 ]
 
-@noteCtrl.controller 'NoteNewCtrl', ['$scope', '$http', ($scope, $http) ->
+@noteCtrl.controller 'NoteNewCtrl', ['$scope', '$http', '$location', ($scope, $http, $location) ->
   $scope.saveNote = ->
     $http.post '/note/new', {content: $scope.noteContent}
       .success (data, status) ->
-        alert "Created"
+        $location.path("/note/view/#{data.id}")
       .error (data, status) ->
         alert "Failed"
 ]
