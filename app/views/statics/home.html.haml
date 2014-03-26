@@ -1,5 +1,5 @@
 .container-fluid
-  .col-xs-2
+  .col-xs-2{'ng-controller' => 'searchCtrl'}
     %nav.navbar.navbar-default
       .container-fluid
         .navbar-header
@@ -8,11 +8,14 @@
         .collapse.navbar-collapse
           %ul.nav.navbar-nav.navbar-right
             %li
-              %a
+              %a{href: '#/note/new'}
                 New
     .container-fluid
-      %input.search
+      %input.search{'ng-model' => 'searchText'}
     .container-fluid#note-content
+      %div{'ng-repeat' => 'result in results'}
+        %a{href: '#/note/view/{{result.id}}'}
+          {{ result.title  }}
   .col-xs-10
     %nav.navbar.navbar-default
       .container-fluid

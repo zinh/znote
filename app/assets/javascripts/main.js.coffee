@@ -1,4 +1,4 @@
-@znote = angular.module 'znote', ['ngRoute', 'noteControllers']
+@znote = angular.module 'znote', ['ngRoute', 'noteControllers', 'searchControllers']
 
 @znote.config ['$routeProvider', ($routeProvider) -> 
   $routeProvider.
@@ -14,8 +14,8 @@
 
 @noteCtrl = angular.module 'noteControllers', []
 
-@noteCtrl.controller 'NoteDetailCtrl', ['$scope', '$http', ($scope, $http) ->
-  $http.get '/note/view/' + $scope.note_id
+@noteCtrl.controller 'NoteDetailCtrl', ['$scope', '$routeParams', '$http', ($scope, $routeParams, $http) ->
+  $http.get '/note/view/' + $routeParams.note_id
     .success (data, status) ->
       $scope.title = data.title
       $scope.content = data.content
@@ -28,4 +28,14 @@
         alert "Created"
       .error (data, status) ->
         alert "Failed"
+]
+
+@searchControllers = angular.module 'searchControllers', []
+
+@searchControllers.controller 'searchCtrl', ['$scope', '$http', ($scope, $http) ->
+  $scope.$watch 'searchText', (newVal, oldVal) ->
+    if newVal.length > 3
+      $http.post '/note/search', {term: newVal}
+        .success (data, status) ->
+          $scope.results = data
 ]

@@ -6,7 +6,8 @@ Znote::Application.routes.draw do
   end
 
   controller :notes do
-    post "note/new" => :new
-    get "note/view" => :view
+    post "note/new" => :new, as: 'note_new'
+    get "note/view/:id" => :view, as: 'note_view'
+    post "note/search" => :search, as: 'search'
   end
 end
