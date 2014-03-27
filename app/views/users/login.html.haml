@@ -1,0 +1,17 @@
+.container
+  .login-wraper
+    = form_tag(create_session_path, class: "form login-form") do
+      %legend
+        Sign in
+      .body
+        %label
+          Email
+        %input{name: 'email', type: 'text'}
+  
+        %label
+          Password
+        %input{name: 'password', type: 'password'}
+  
+      .footer
+        %button.btn.btn-success{type: 'submit'}
+          Log in

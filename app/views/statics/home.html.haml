@@ -28,8 +28,16 @@
               %a
                 Delete
           %ul.nav.navbar-nav.navbar-right
-            %li
-              %a
+            %li.dropdown
+              %a.dropdown-toggle{"data-toggle" => "dropdown", href: "javascript:void(0);"}
                 My Account
+                <b class="caret"></b>
+              %ul.dropdown-menu
+                %li
+                  %a{href: edit_user_path}
+                    Edit
+                %li
+                  %a{href: logout_path}
+                    Logout
     .container-fluid#note-content
       <div ng-view></div>
