@@ -15,8 +15,18 @@ class NotesController < ApplicationController
 
   def view
     id = params[:id]
-    note = Note.find_by(id: params[:id])
-    render json: {title: note.title, content: note.content}
+    note = Note.select(:id, :title, :content, :content_html).find_by(id: params[:id])
+    render json: {id: note.id, title: note.title, content: note.content, content_html: note.content_html}
+  end
+
+  def edit
+    note = Note.find_by(id: params[:id], user_id: current_user.id) if params[:id].present?
+    if note.present?
+      note.update_attributes(note_params)
+      render json: {id: note.id}
+    else
+      render text: "failed", status: 403, layout: false
+    end
   end
 
   def search
@@ -27,5 +37,10 @@ class NotesController < ApplicationController
     else
       render text: "no result"
     end
+  end
+
+  private
+  def note_params
+    params.permit(:title, :content)
   end
 end

@@ -5,12 +5,14 @@ Znote::Application.routes.draw do
   controller :partials do
     get "partials/note_new" => :note_new
     get "partials/note_view" => :note_view
+    get "partials/note_edit" => :note_edit
   end
 
   controller :notes do
     post "note/new" => :new, as: 'note_new'
     get "note/view/:id" => :view, as: 'note_view'
     post "note/search" => :search, as: 'search'
+    post "note/edit" => :edit, as: 'edit'
   end
 
   controller :users do

@@ -4,7 +4,8 @@
       .container-fluid
         .navbar-header
           .navbar-brand
-            ZNote
+            %a{href: home_path}
+              ZNote
         .collapse.navbar-collapse
           %ul.nav.navbar-nav.navbar-right
             %li
@@ -22,10 +23,10 @@
         .collapse.navbar-collapse
           %ul.nav.navbar-nav.navbar-left
             %li
-              %a
+              %a#note_edit
                 Edit
             %li
-              %a
+              %a#note_delete
                 Delete
           %ul.nav.navbar-nav.navbar-right
             %li.dropdown
