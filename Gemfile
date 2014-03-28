@@ -19,6 +19,7 @@ gem 'haml'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 group :development do
   gem 'therubyracer', platforms: :ruby
+  gem 'annotate'
 end
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
