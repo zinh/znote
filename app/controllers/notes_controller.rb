@@ -1,8 +1,11 @@
 class NotesController < ApplicationController
+  before_filter :require_login
+
   def new
     content = params[:content]
+    title = params[:content].blank? ? params[:content].blank? : "Default title"
     # TODO: assign user and title
-    note = Note.new(user_id: 1, title: 'Test title', content: content)
+    note = Note.new(user_id: current_user.id, title: title, content: content)
     if note.save
       render json: {id: note.id}
     else

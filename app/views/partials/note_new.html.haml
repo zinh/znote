@@ -1,4 +1,5 @@
 %form
+  %input{type: 'text', placeholder: 'Title', style: 'width: 100%;', 'ng-model' => 'noteTitle'}
   %textarea{style: "width: 100%", 'ng-model' => 'noteContent'}
   %button.btn.btn-primary{'ng-click' => 'saveNote()'}
     Save
