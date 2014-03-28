@@ -14,8 +14,12 @@
       templateUrl: '/partials/note_edit',
       controller: 'NoteEditCtrl'
     }).
+    when('/note/:note_id/delete', {
+      template: ' '
+      controller: 'NoteDeleteCtrl'
+    }).
     otherwise({
-      redirectTo: ''
+      redirectTo: '/'
     })
 ]
 
@@ -56,6 +60,17 @@
         alert "Update Failed"
   $scope.cancelEdit = ->
     $location.path("/note/view/#{$scope.noteId}")
+]
+
+@noteCtrl.controller 'NoteDeleteCtrl', ['$scope', '$routeParams', '$http', ($scope, $routeParams, $http) ->
+  alert "hello world"
+  $http.get "/note/#{$routeParams.note_id}/delete"
+    .success (data, status) ->
+      $("#note_edit").removeAttr("href")
+      $("#note_delete").removeAttr("href")
+      $location.path "/"
+    .error (data, status) ->
+      alert "Delete failed"
 ]
 
 @searchControllers = angular.module 'searchControllers', []

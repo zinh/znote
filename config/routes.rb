@@ -13,6 +13,7 @@ Znote::Application.routes.draw do
     get "note/view/:id" => :view, as: 'note_view'
     post "note/search" => :search, as: 'search'
     post "note/edit" => :edit, as: 'edit'
+    get "note/:id/delete" => :delete, as: 'delete'
   end
 
   controller :users do

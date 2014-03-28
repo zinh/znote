@@ -3,7 +3,7 @@ class NotesController < ApplicationController
 
   def new
     content = params[:content]
-    title = params[:content].blank? ? params[:content].blank? : "Default title"
+    title = params[:title].present? ? params[:title] : "Default title"
     # TODO: assign user and title
     note = Note.new(user_id: current_user.id, title: title, content: content)
     if note.save
@@ -24,6 +24,16 @@ class NotesController < ApplicationController
     if note.present?
       note.update_attributes(note_params)
       render json: {id: note.id}
+    else
+      render text: "failed", status: 403, layout: false
+    end
+  end
+
+  def delete
+    note = Note.find_by(id: params[:id], user_id: current_user.id) if params[:id].present?
+    if note.present?
+      note.destroy
+      render text: "success", layout: false
     else
       render text: "failed", status: 403, layout: false
     end
