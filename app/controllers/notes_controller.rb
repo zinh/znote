@@ -41,7 +41,7 @@ class NotesController < ApplicationController
 
   def search
     term = params[:term]
-    notes = Note.where("content LIKE ?", "%#{term}%") if term.present?
+    notes = Note.user_limit(current_user.id).free_search(term) if term.present?
     if notes
       render json: notes.map{|c| {id: c.id, title: c.title}}
     else

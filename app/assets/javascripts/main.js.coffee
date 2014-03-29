@@ -52,6 +52,11 @@
   $scope.editorOptions = 
     mode: 'markdown'
     theme: 'paraiso-light'
+    indentUnit: 4
+    extraKeys:
+      Tab: (cm)->
+        spaces = Array(cm.getOption("indentUnit") + 1).join(" ")
+        cm.replaceSelection(spaces)
 
   $http.get '/note/view/' + $routeParams.note_id
     .success (data, status) ->

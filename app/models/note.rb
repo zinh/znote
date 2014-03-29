@@ -14,6 +14,8 @@ require 'redcarpet'
 
 class Note < ActiveRecord::Base
   before_save :convert_markdown
+  scope :user_limit, ->(user_id) { where(user_id: user_id) }
+  scope :free_search, ->(term) { where("title LIKE :term OR content LIKE :term", term: "%#{term}%")}
 
   # convert content column to markdown, save it to content_html
   def convert_markdown
@@ -23,6 +25,7 @@ class Note < ActiveRecord::Base
 
   class MarkdownRenderer < Redcarpet::Render::HTML
     def block_code(code, language)
+      return "<pre>#{code}</pre>" if language.blank?
       CodeRay.highlight(code, language)
     end
   end
