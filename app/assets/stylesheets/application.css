@@ -10,5 +10,8 @@
  *
  *= require bootstrap
  *= require users
+ *= require codemirror
+ *= require paraiso-light
+ *= require coderay
  *= require_self
  */

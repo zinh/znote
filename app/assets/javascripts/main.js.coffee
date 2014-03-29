@@ -23,7 +23,7 @@
     })
 ]
 
-@noteCtrl = angular.module 'noteControllers', ['ngSanitize']
+@noteCtrl = angular.module 'noteControllers', ['ngSanitize', 'ui.codemirror']
 
 @noteCtrl.controller 'NoteDetailCtrl', ['$scope', '$routeParams', '$http', ($scope, $routeParams, $http) ->
   $http.get '/note/view/' + $routeParams.note_id
@@ -37,6 +37,9 @@
 @noteCtrl.controller 'NoteNewCtrl', ['$scope', '$http', '$location', ($scope, $http, $location) ->
   $("#note_edit").removeAttr("href")
   $("#note_delete").removeAttr("href")
+  $scope.editorOptions = 
+    mode: 'markdown'
+    theme: 'paraiso-light'
   $scope.saveNote = ->
     $http.post '/note/new', {title: $scope.noteTitle, content: $scope.noteContent}
       .success (data, status) ->
@@ -46,6 +49,10 @@
 ]
 
 @noteCtrl.controller 'NoteEditCtrl', ['$scope', '$routeParams', '$http', '$location', ($scope, $routeParams, $http, $location) ->
+  $scope.editorOptions = 
+    mode: 'markdown'
+    theme: 'paraiso-light'
+
   $http.get '/note/view/' + $routeParams.note_id
     .success (data, status) ->
       $scope.noteId = data.id

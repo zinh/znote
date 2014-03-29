@@ -1,8 +1,7 @@
 %form
   %input{type: 'hidden', 'ng-model' => 'noteId', "ng-value" => "noteId"}
   %input{type: 'text', style: 'width: 100%;', 'ng-model' => 'noteTitle', "ng-value" => "noteTitle"}
-  %textarea{style: "width: 100%", 'ng-model' => 'noteContent'}
-    {{ noteContent  }}
+  <ui-codemirror ng-model='noteContent' ui-codemirror-opts="editorOptions"></ui-codemirror>
   %button.btn.btn-primary{'ng-click' => 'saveNote()'}
     Save
   %button.btn.btn-warning{'ng-click' => 'cancelEdit()'}

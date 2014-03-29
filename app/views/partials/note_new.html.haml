@@ -1,6 +1,6 @@
 %form
   %input{type: 'text', placeholder: 'Title', style: 'width: 100%;', 'ng-model' => 'noteTitle'}
-  %textarea{style: "width: 100%", 'ng-model' => 'noteContent'}
+  <ui-codemirror ng-model='noteContent' ui-codemirror-opts="editorOptions"></ui-codemirror>
   %button.btn.btn-primary{'ng-click' => 'saveNote()'}
     Save
   %button.btn.btn-warning
