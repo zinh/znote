@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140328034540) do
+ActiveRecord::Schema.define(version: 20140330090802) do
 
   create_table "notes", force: true do |t|
     t.integer  "user_id",      null: false
@@ -22,6 +22,9 @@ ActiveRecord::Schema.define(version: 20140328034540) do
     t.text     "content_html"
   end
 
+  add_index "notes", ["content"], name: "index_notes_on_content", type: :fulltext
+  add_index "notes", ["title", "content"], name: "index_notes_on_title_and_content", type: :fulltext
+  add_index "notes", ["title"], name: "index_notes_on_title", type: :fulltext
   add_index "notes", ["user_id"], name: "index_notes_on_user_id", using: :btree
 
   create_table "tags", force: true do |t|

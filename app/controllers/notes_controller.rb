@@ -45,7 +45,7 @@ class NotesController < ApplicationController
     if notes
       render json: notes.map{|c| {id: c.id, title: c.title}}
     else
-      render text: "no result"
+      render text: "no result", layout: false
     end
   end
 
