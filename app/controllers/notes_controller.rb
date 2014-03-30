@@ -49,6 +49,11 @@ class NotesController < ApplicationController
     end
   end
 
+  def latest
+    notes = Note.user_limit(current_user.id).latest(10)
+    render json: notes.map{|c| {id: c.id, title: c.title}}
+  end
+
   private
   def note_params
     params.permit(:title, :content)

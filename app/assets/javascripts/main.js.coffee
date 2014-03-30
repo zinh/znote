@@ -18,6 +18,10 @@
       template: ' '
       controller: 'NoteDeleteCtrl'
     }).
+    when('/',{
+      template: ' '
+      controller: 'RootCtrl'
+    }).
     otherwise({
       redirectTo: '/'
     })
@@ -74,8 +78,7 @@
     $location.path("/note/view/#{$scope.noteId}")
 ]
 
-@noteCtrl.controller 'NoteDeleteCtrl', ['$scope', '$routeParams', '$http', ($scope, $routeParams, $http) ->
-  alert "hello world"
+@noteCtrl.controller 'NoteDeleteCtrl', ['$scope', '$routeParams', '$http', '$location', ($scope, $routeParams, $http, $location) ->
   $http.get "/note/#{$routeParams.note_id}/delete"
     .success (data, status) ->
       $("#note_edit").removeAttr("href")
@@ -85,9 +88,18 @@
       alert "Delete failed"
 ]
 
+@noteCtrl.controller 'RootCtrl', ['$scope', '$rootScope', ($scope, $rootScope) ->
+  $rootScope.$broadcast('ROOT_CALLED');
+]
+
 @searchControllers = angular.module 'searchControllers', []
 
 @searchControllers.controller 'searchCtrl', ['$scope', '$http', ($scope, $http) ->
+  $scope.$on 'ROOT_CALLED', (event, args) ->
+    $http.get '/notes/latest'
+      .success (data, status) ->
+        $scope.searchText = ''
+        $scope.results = data
   $scope.$watch 'searchText', (newVal, oldVal) ->
     if newVal.length > 3
       $http.post '/note/search', {term: newVal}
