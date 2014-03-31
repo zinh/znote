@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     user = User.authenticate(email, password)
     if user
       sign_in(user)
-      redirect_to home_path
+      redirect_to root_path
     else
       flash[:error] = "Wrong email/password"
       redirect_to login_path
@@ -18,7 +18,7 @@ class UsersController < ApplicationController
     user = User.new(user_params)
     if user.save
       sign_in(user)
-      redirect_to home_path
+      redirect_to root_path
     else
       redirect_to register_path
     end
