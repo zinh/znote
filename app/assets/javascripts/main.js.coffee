@@ -29,7 +29,7 @@
 
 @noteCtrl = angular.module 'noteControllers', ['ngSanitize', 'ui.codemirror']
 
-@noteCtrl.controller 'NoteDetailCtrl', ['$scope', '$routeParams', '$http', ($scope, $routeParams, $http) ->
+@noteCtrl.controller 'NoteDetailCtrl', ['$scope', '$routeParams', '$http', '$rootScope', ($scope, $routeParams, $http, $rootScope) ->
   $http.get '/note/view/' + $routeParams.note_id
     .success (data, status) ->
       $scope.title = data.title
@@ -39,6 +39,7 @@
       $('#content-holder').perfectScrollbar
         wheelSpeed: 20,
         wheelPropagation: false
+      $rootScope.$broadcast('RELOAD_LATEST_NOTE')
 ]
 
 @noteCtrl.controller 'NoteNewCtrl', ['$scope', '$http', '$location', '$rootScope', ($scope, $http, $location, $rootScope) ->
@@ -50,7 +51,7 @@
   $scope.saveNote = ->
     $http.post '/note/new', {title: $scope.noteTitle, content: $scope.noteContent}
       .success (data, status) ->
-        $rootScope.$broadcast('ROOT_CALLED');
+        $rootScope.$broadcast('ROOT_CALLED')
         $location.path("/note/view/#{data.id}")
       .error (data, status) ->
         alert "Create Failed"
@@ -101,12 +102,21 @@
 
 @searchControllers = angular.module 'searchControllers', []
 
-@searchControllers.controller 'searchCtrl', ['$scope', '$http', ($scope, $http) ->
+@searchControllers.controller 'searchCtrl', ['$scope', '$http', '$location', ($scope, $http, $location) ->
   $scope.$on 'ROOT_CALLED', (event, args) ->
     $http.get '/notes/latest'
       .success (data, status) ->
         $scope.searchText = ''
         $scope.results = data
+        if data.length > 1
+          $location.path("/note/view/#{data[0].id}")
+
+  $scope.$on 'RELOAD_LATEST_NOTE', (event, args) ->
+    unless $scope.results?
+      $http.get '/notes/latest'
+        .success (data, status) ->
+          $scope.results = data
+
   $scope.$watch 'searchText', (newVal, oldVal) ->
     if newVal.length > 3
       $http.post '/note/search', {term: newVal}
