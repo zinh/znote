@@ -40,6 +40,8 @@
         wheelSpeed: 20,
         wheelPropagation: false
       $rootScope.$broadcast('RELOAD_LATEST_NOTE')
+    .error (data, status) ->
+      alert(data)
 ]
 
 @noteCtrl.controller 'NoteNewCtrl', ['$scope', '$http', '$location', '$rootScope', ($scope, $http, $location, $rootScope) ->
@@ -108,7 +110,7 @@
       .success (data, status) ->
         $scope.searchText = ''
         $scope.results = data
-        if data.length > 1
+        if data.length > 0
           $location.path("/note/view/#{data[0].id}")
 
   $scope.$on 'RELOAD_LATEST_NOTE', (event, args) ->
