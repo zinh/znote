@@ -27,7 +27,7 @@ class Note < ActiveRecord::Base
 
   class MarkdownRenderer < Redcarpet::Render::HTML
     def block_code(code, language)
-      return "<pre>#{code}</pre>" if language.blank?
+      return "<div class='CodeRay'><div class='code'><pre>#{code}</pre></div></div>" if language.blank?
       CodeRay.highlight(code, language)
     end
   end
