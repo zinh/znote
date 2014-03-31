@@ -15,7 +15,7 @@ class NotesController < ApplicationController
 
   def view
     id = params[:id]
-    note = Note.select(:id, :title, :content, :content_html).find_by(id: params[:id])
+    note = Note.select(:id, :title, :content, :content_html).user_limit(current_user.id).find_by(id: params[:id])
     render json: {id: note.id, title: note.title, content: note.content, content_html: note.content_html}
   end
 
@@ -50,7 +50,7 @@ class NotesController < ApplicationController
   end
 
   def latest
-    notes = Note.user_limit(current_user.id).latest(10)
+    notes = Note.user_limit(current_user.id).latest(30)
     render json: notes.map{|c| {id: c.id, title: c.title}}
   end
 
