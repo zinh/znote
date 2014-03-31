@@ -13,5 +13,7 @@
  *= require codemirror
  *= require paraiso-light
  *= require coderay
+ *= require main
+ *= require perfect-scrollbar
  *= require_self
  */

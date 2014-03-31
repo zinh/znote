@@ -1,6 +1,6 @@
-.container-fluid
-  .col-xs-2{'ng-controller' => 'searchCtrl'}
-    %nav.navbar.navbar-default
+.container-fluid.height90
+  .col-xs-2.nav-no-padding.height100{'ng-controller' => 'searchCtrl'}
+    %nav.navbar.navbar-default.no-margin
       .container-fluid
         .navbar-header
           .navbar-brand
@@ -11,14 +11,13 @@
             %li
               %a{href: '#/note/new'}
                 New
-    .container-fluid
-      %input.search{'ng-model' => 'searchText'}
-    .container-fluid#note-content
-      %div{'ng-repeat' => 'result in results'}
-        %a{href: '#/note/view/{{result.id}}'}
+    .container-fluid.nav-no-padding.note-list.height100
+      .list-group
+        %input.search.list-group-item{'ng-model' => 'searchText', placeholder: "Search"}
+        %a.list-group-item{'ng-repeat' => 'result in results', href: '#/note/view/{{result.id}}'}
           {{ result.title  }}
-  .col-xs-10
-    %nav.navbar.navbar-default
+  .col-xs-10.nav-no-padding.height100
+    %nav.navbar.navbar-default.no-margin
       .container-fluid
         .collapse.navbar-collapse
           %ul.nav.navbar-nav.navbar-left
@@ -40,5 +39,5 @@
                 %li
                   %a{href: logout_path}
                     Logout
-    .container-fluid#note-content
-      <div ng-view></div>
+    .container-fluid.note-content.height100
+      <div class="height100" ng-view></div>
