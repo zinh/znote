@@ -9,10 +9,10 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require bootstrap
- *= require users
  *= require codemirror
  *= require paraiso-light
  *= require coderay
+ *= require signin
  *= require main
  *= require perfect-scrollbar
  *= require_self

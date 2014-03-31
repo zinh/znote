@@ -1,21 +1,9 @@
 .container
-  .login-wraper
-    = form_tag(create_user_path, class: "form login-form") do
-      %legend
-        Register
-      .body
-        %label
-          Email
-        %input{name: 'user[email]', type: 'text'}
-  
-        %label
-          Password
-        %input{name: 'user[password]', type: 'password'}
-  
-        %label
-          Password Confirmation
-        %input{name: 'user[password_confirmation]', type: 'password'}
-  
-      .footer
-        %button.btn.btn-success{type: 'submit'}
-          Register
+  = form_tag(create_session_path, class: "form-signin", role: "form") do
+    %h2.form-signin-heading
+      Register with zNote
+    %input.form-control{type: "email", placeholder: "Email address", name: "user[email]"}
+    %input.form-control{type: "password", placeholder: "Password", name: "user[password]"}
+    %input.form-control{type: "password", placeholder: "Password", name: "user[password_confirmation]"}
+    %button.btn.btn-lg.btn-primary.btn-block{type: 'submit'}
+      Register

@@ -1,17 +1,11 @@
 .container
-  .login-wraper
-    = form_tag(create_session_path, class: "form login-form") do
-      %legend
-        Sign in
-      .body
-        %label
-          Email
-        %input{name: 'email', type: 'text'}
-  
-        %label
-          Password
-        %input{name: 'password', type: 'password'}
-  
-      .footer
-        %button.btn.btn-success{type: 'submit'}
-          Log in
+  = form_tag(create_session_path, class: "form-signin", role: "form") do
+    %h2.form-signin-heading
+      Login to zNote
+    %input.form-control{type: "email", placeholder: "Email address", name: "email"}
+    %input.form-control{type: "password", placeholder: "Password", name: "password"}
+    %label
+      %a{href: register_path}
+        Register here
+    %button.btn.btn-lg.btn-primary.btn-block{type: 'submit'}
+      Login
