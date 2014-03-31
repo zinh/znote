@@ -3,7 +3,7 @@ class NotesController < ApplicationController
 
   def new
     content = params[:content]
-    title = params[:content].blank? ? params[:content].blank? : "Default title"
+    title = params[:title].present? ? params[:title] : "Default title"
     # TODO: assign user and title
     note = Note.new(user_id: current_user.id, title: title, content: content)
     if note.save
@@ -29,14 +29,29 @@ class NotesController < ApplicationController
     end
   end
 
+  def delete
+    note = Note.find_by(id: params[:id], user_id: current_user.id) if params[:id].present?
+    if note.present?
+      note.destroy
+      render text: "success", layout: false
+    else
+      render text: "failed", status: 403, layout: false
+    end
+  end
+
   def search
     term = params[:term]
-    notes = Note.where("content LIKE ?", "%#{term}%") if term.present?
+    notes = Note.user_limit(current_user.id).free_search(term) if term.present?
     if notes
       render json: notes.map{|c| {id: c.id, title: c.title}}
     else
-      render text: "no result"
+      render text: "no result", layout: false
     end
+  end
+
+  def latest
+    notes = Note.user_limit(current_user.id).latest(10)
+    render json: notes.map{|c| {id: c.id, title: c.title}}
   end
 
   private
