@@ -15,8 +15,7 @@ require 'redcarpet'
 class Note < ActiveRecord::Base
   before_save :convert_markdown
   scope :user_limit, ->(user_id) { where(user_id: user_id) }
-  # scope :free_search, ->(term) { where("title LIKE :term OR content LIKE :term", term: "%#{term}%")}
-  scope :free_search, ->(term) { select("notes.*, match(title) against ('#{term}') as rel_title, match(content) against ('#{term}') as rel_content").where("match(title, content) against (:term)", term: term).order("(rel_title*2)+(rel_content) DESC")}
+  scope :free_search, ->(term) { where("title LIKE :term OR content LIKE :term", term: "%#{term}%")}
   scope :latest, ->(limit) { order(updated_at: :desc).limit(limit)  }
 
   # convert content column to markdown, save it to content_html

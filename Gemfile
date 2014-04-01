@@ -7,7 +7,6 @@ gem 'rails', '4.0.3'
 # gem 'mysql2'
 
 gem 'pg'
-gem 'pg_search'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
