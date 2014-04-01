@@ -1,8 +1,9 @@
-.container
-  = form_for(@user, url: update_user_path, html: {class: "form-signin", role: "form"}) do |f|
-    %h2.form-signin-heading
-      Edit login information
-    = f.email_field :email, class: "form-control"
-    = f.password_field :password, class: "form-control"
-    %button.btn.btn-lg.btn-primary.btn-block{type: 'submit'}
-      Update
+.fullscreen_bg#fullscreen_bg
+  .container.login-box
+    = form_for(@user, url: update_user_path, html: {class: "form-signin", role: "form"}) do |f|
+      %h2.form-signin-heading.text-muted
+        Edit
+      = f.email_field :email, class: "form-control"
+      = f.password_field :password, class: "form-control"
+      %button.btn.btn-lg.btn-primary.btn-block.submit-btn{type: 'submit'}
+        Update
