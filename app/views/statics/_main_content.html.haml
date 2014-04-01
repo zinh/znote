@@ -1,0 +1,25 @@
+.col-xs-10.nav-no-padding.height100
+  %nav.navbar.navbar-default.no-margin
+    .container-fluid
+      .collapse.navbar-collapse
+        %ul.nav.navbar-nav.navbar-left
+          %li
+            %a#note_edit
+              Edit
+          %li
+            %a#note_delete
+              Delete
+        %ul.nav.navbar-nav.navbar-right
+          %li.dropdown
+            %a.dropdown-toggle{"data-toggle" => "dropdown", href: "javascript:void(0);"}
+              My Account
+              <b class="caret"></b>
+            %ul.dropdown-menu
+              %li
+                %a{href: edit_user_path}
+                  Edit
+              %li
+                %a{href: logout_path}
+                  Logout
+  .container-fluid.note-content.height100
+    <div class="height100" ng-view></div>
