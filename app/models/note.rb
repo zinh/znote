@@ -13,10 +13,12 @@
 require 'redcarpet'
 
 class Note < ActiveRecord::Base
+  include PgSearch
   before_save :convert_markdown
   scope :user_limit, ->(user_id) { where(user_id: user_id) }
-  scope :free_search, ->(term) { where("title LIKE :term OR content LIKE :term", term: "%#{term}%")}
+  # scope :free_search, ->(term) { where("title ILIKE :term OR content LIKE :term", term: "%#{term}%")}
   scope :latest, ->(limit) { order(updated_at: :desc).limit(limit)  }
+  pg_search_scope :fulltext_search, :against => [[:title, 'A'], [:content, 'B']]
 
   # convert content column to markdown, save it to content_html
   def convert_markdown
