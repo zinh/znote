@@ -26,14 +26,14 @@ class Note < ActiveRecord::Base
 
   class MarkdownRenderer < Redcarpet::Render::HTML
     def block_code(code, language)
-      return "<pre>#{code}</pre>" if language.blank?
+      return "<div class='CodeRay'><div class='code'><pre>#{code}</pre></div></div>" if language.blank?
       CodeRay.highlight(code, language)
     end
   end
 
   # private
   def markdown(text)
-    rndr = MarkdownRenderer.new(:filter_html => true, :hard_wrap => true)
+    rndr = MarkdownRenderer.new(:filter_html => true)
     options = {
       :fenced_code_blocks => true,
       :no_intra_emphasis => true,

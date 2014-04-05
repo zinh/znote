@@ -27,18 +27,24 @@
     })
 ]
 
-@noteCtrl = angular.module 'noteControllers', ['ngSanitize', 'ui.codemirror']
+@noteCtrl = angular.module 'noteControllers', ['ui.codemirror']
 
-@noteCtrl.controller 'NoteDetailCtrl', ['$scope', '$routeParams', '$http', ($scope, $routeParams, $http) ->
+@noteCtrl.controller 'NoteDetailCtrl', ['$scope', '$routeParams', '$http', '$rootScope', '$sce', ($scope, $routeParams, $http, $rootScope, $sce) ->
   $http.get '/note/view/' + $routeParams.note_id
     .success (data, status) ->
       $scope.title = data.title
-      $scope.content = data.content_html
+      $scope.content = $sce.trustAsHtml(data.content_html)
       $("#note_edit").attr("href", "#/note/#{data.id}/edit")
       $("#note_delete").attr("href", "#/note/#{data.id}/delete")
+      $('#content-holder').perfectScrollbar
+        wheelSpeed: 20,
+        wheelPropagation: false
+      $rootScope.$broadcast('RELOAD_LATEST_NOTE', [data.id])
+    .error (data, status) ->
+      alert(data)
 ]
 
-@noteCtrl.controller 'NoteNewCtrl', ['$scope', '$http', '$location', ($scope, $http, $location) ->
+@noteCtrl.controller 'NoteNewCtrl', ['$scope', '$http', '$location', '$rootScope', ($scope, $http, $location, $rootScope) ->
   $("#note_edit").removeAttr("href")
   $("#note_delete").removeAttr("href")
   $scope.editorOptions = 
@@ -47,12 +53,15 @@
   $scope.saveNote = ->
     $http.post '/note/new', {title: $scope.noteTitle, content: $scope.noteContent}
       .success (data, status) ->
+        $rootScope.$broadcast('ROOT_CALLED')
         $location.path("/note/view/#{data.id}")
       .error (data, status) ->
         alert "Create Failed"
+  $scope.cancelNote = ->
+    $location.path "/"
 ]
 
-@noteCtrl.controller 'NoteEditCtrl', ['$scope', '$routeParams', '$http', '$location', ($scope, $routeParams, $http, $location) ->
+@noteCtrl.controller 'NoteEditCtrl', ['$scope', '$routeParams', '$http', '$location', '$rootScope', ($scope, $routeParams, $http, $location, $rootScope) ->
   $scope.editorOptions = 
     mode: 'markdown'
     theme: 'paraiso-light'
@@ -71,6 +80,7 @@
   $scope.saveNote = ->
     $http.post '/note/edit', {id: $scope.noteId, title: $scope.noteTitle, content: $scope.noteContent}
       .success (data, status) ->
+        $rootScope.$broadcast('ROOT_CALLED');
         $location.path("/note/view/#{data.id}")
       .error (data, status) ->
         alert "Update Failed"
@@ -94,15 +104,34 @@
 
 @searchControllers = angular.module 'searchControllers', []
 
-@searchControllers.controller 'searchCtrl', ['$scope', '$http', ($scope, $http) ->
+@searchControllers.controller 'searchCtrl', ['$scope', '$http', '$location', ($scope, $http, $location) ->
+  $scope.get_current = (current_id, id) ->
+    if current_id == id
+      return 'active'
+    else
+      return ''
   $scope.$on 'ROOT_CALLED', (event, args) ->
     $http.get '/notes/latest'
       .success (data, status) ->
         $scope.searchText = ''
         $scope.results = data
+        if data.length > 0
+          $location.path("/note/view/#{data[0].id}")
+
+  $scope.$on 'RELOAD_LATEST_NOTE', (event, args) ->
+    $scope.current_id = args[0]
+    unless $scope.results?
+      $http.get '/notes/latest'
+        .success (data, status) ->
+          $scope.results = data
+
   $scope.$watch 'searchText', (newVal, oldVal) ->
     if newVal.length > 3
       $http.post '/note/search', {term: newVal}
+        .success (data, status) ->
+          $scope.results = data
+    else
+      $http.get '/notes/latest'
         .success (data, status) ->
           $scope.results = data
 ]

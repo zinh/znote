@@ -13,3 +13,6 @@
 //= require codemirror
 //= require markdown
 //= require ui-codemirror
+//= require jquery.mousewheel
+//= require perfect-scrollbar
+//= require_self

@@ -1,0 +1,17 @@
+.col-xs-2.nav-no-padding.height100{'ng-controller' => 'searchCtrl'}
+  %nav.navbar.navbar-default.no-margin
+    .container-fluid
+      .navbar-header
+        .navbar-brand
+          %a{href: root_path}
+            zNote
+      .collapse.navbar-collapse
+        %ul.nav.navbar-nav.navbar-right
+          %li
+            %a{href: '#/note/new'}
+              New
+  .container-fluid.nav-no-padding.note-list.height100
+    .list-group
+      %input.search.list-group-item{'ng-model' => 'searchText', placeholder: "Search"}
+      %a{'ng-repeat' => 'result in results', class: "list-group-item {{ get_current(current_id, result.id) }}", href: '#/note/view/{{result.id}}'}
+        {{ result.title  }}

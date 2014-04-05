@@ -1,6 +1,7 @@
 Znote::Application.routes.draw do
+  root to: "statics#home"
   controller :statics do
-    get "statics/home" => :home, as: 'home'
+    get "/home" => :home, as: 'home'
   end
   controller :partials do
     get "partials/note_new" => :note_new
@@ -24,5 +25,6 @@ Znote::Application.routes.draw do
     post "register" => :create, as: 'create_user'
     get "logout" => :logout, as: 'logout'
     get "edit" => :edit, as: 'edit_user'
+    patch "edit" => :update, as: 'update_user'
   end
 end
