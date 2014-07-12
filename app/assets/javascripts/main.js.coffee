@@ -61,7 +61,7 @@
     $location.path "/"
 ]
 
-@noteCtrl.controller 'NoteEditCtrl', ['$scope', '$routeParams', '$http', '$location', '$rootScope', ($scope, $routeParams, $http, $location, $rootScope) ->
+@noteCtrl.controller 'NoteEditCtrl', ['$scope', '$routeParams', '$http', '$location', '$rootScope', '$interval', ($scope, $routeParams, $http, $location, $rootScope, $interval) ->
   $scope.editorOptions = 
     mode: 'markdown'
     theme: 'paraiso-light'
@@ -84,8 +84,23 @@
         $location.path("/note/view/#{data.id}")
       .error (data, status) ->
         alert "Update Failed"
+
   $scope.cancelEdit = ->
     $location.path("/note/view/#{$scope.noteId}")
+
+  autoSave = $interval(
+    ->
+      $http.post '/note/edit', {id: $scope.noteId, title: $scope.noteTitle, content: $scope.noteContent}
+        .success (data, status) ->
+          currentdate = new Date()
+          $("#autosave").text("Autosave at " + currentdate.getHours() + ':' + currentdate.getMinutes())
+    60000
+  )
+
+  $scope.$on('$destroy', ->
+    $interval.cancel(autoSave)
+    autoSave = undefined
+  )
 ]
 
 @noteCtrl.controller 'NoteDeleteCtrl', ['$scope', '$routeParams', '$http', '$location', ($scope, $routeParams, $http, $location) ->
