@@ -15,7 +15,9 @@ Znote::Application.routes.draw do
     post "note/search" => :search, as: 'search'
     post "note/edit" => :edit, as: 'edit'
     get "note/:id/delete" => :delete, as: 'delete'
+    get "note/:id/share" => :share, as: 'share'
     get "notes/latest" => :latest, as: 'latest'
+    get "share/:share_id" => :view_share, as: 'view_share'
   end
 
   controller :users do

@@ -1,3 +1,6 @@
+share = (id)->
+  alert("Share note #{id}")
+
 @znote = angular.module 'znote', ['ngRoute', 'noteControllers', 'searchControllers']
 
 @znote.config ['$routeProvider', ($routeProvider) -> 
@@ -18,6 +21,10 @@
       template: ' '
       controller: 'NoteDeleteCtrl'
     }).
+    when('/note/:note_id/share', {
+      template: ' '
+      controller: 'NoteShareCtrl'
+    }).
     when('/',{
       template: ' '
       controller: 'RootCtrl'
@@ -36,6 +43,7 @@
       $scope.content = $sce.trustAsHtml(data.content_html)
       $("#note_edit").attr("href", "#/note/#{data.id}/edit")
       $("#note_delete").attr("href", "#/note/#{data.id}/delete")
+      $("#note_share").attr("href", "javascript:share(#{data.id})")
       $('#content-holder').perfectScrollbar
         wheelSpeed: 20,
         wheelPropagation: false
@@ -47,6 +55,7 @@
 @noteCtrl.controller 'NoteNewCtrl', ['$scope', '$http', '$location', '$rootScope', ($scope, $http, $location, $rootScope) ->
   $("#note_edit").removeAttr("href")
   $("#note_delete").removeAttr("href")
+  $("#note_share").removeAttr("href")
   $scope.editorOptions = 
     mode: 'markdown'
     theme: 'paraiso-light'
@@ -108,9 +117,19 @@
     .success (data, status) ->
       $("#note_edit").removeAttr("href")
       $("#note_delete").removeAttr("href")
+      $("#note_share").removeAttr("href")
       $location.path "/"
     .error (data, status) ->
       alert "Delete failed"
+]
+
+@noteCtrl.controller 'NoteShareCtrl', ['$scope', '$routeParams', '$http', '$location', ($scope, $routeParams, $http, $location) ->
+  $http.get "/note/#{$routeParams.note_id}/share"
+    .success (data, status) ->
+      alert(data.id)
+      event.preventDefault
+    .error (data, status) ->
+      alert "Share failed"
 ]
 
 @noteCtrl.controller 'RootCtrl', ['$scope', '$rootScope', ($scope, $rootScope) ->

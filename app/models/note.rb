@@ -2,15 +2,18 @@
 #
 # Table name: notes
 #
-#  id         :integer          not null, primary key
-#  user_id    :integer          not null
-#  title      :string(255)
-#  content    :text
-#  created_at :datetime
-#  updated_at :datetime
+#  id           :integer          not null, primary key
+#  user_id      :integer          not null
+#  title        :string(255)
+#  content      :text
+#  created_at   :datetime
+#  updated_at   :datetime
+#  content_html :text
+#  share_id     :string(255)
 #
 
 require 'redcarpet'
+require 'securerandom'
 
 class Note < ActiveRecord::Base
   include PgSearch
@@ -25,6 +28,16 @@ class Note < ActiveRecord::Base
     # self.content_html = Kramdown::Document.new(content).to_html
     self.content_html = markdown(content)
   end# convert_markdown
+
+  # public this note
+  def share
+    if self.share_id.blank?
+      self.share_id = SecureRandom.urlsafe_base64(8)
+      self.save!
+    end
+
+    self.share_id
+  end
 
   class MarkdownRenderer < Redcarpet::Render::HTML
     def block_code(code, language)

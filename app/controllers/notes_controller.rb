@@ -58,6 +58,20 @@ class NotesController < ApplicationController
     render json: notes.map{|c| {id: c.id, title: c.title}}
   end
 
+  def share
+    note = Note.find_by(id: params[:id], user_id: current_user.id)
+    if note.present?
+      share_id = note.share
+      render json: {id: share_id}
+    else
+      render text: "failed", status: 403, layout: false
+    end
+  end
+
+  def view_share
+    @note = Note.find_by(share_id: params[:share_id]) || not_found
+  end
+
   private
   def note_params
     params.permit(:title, :content)
