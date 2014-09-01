@@ -19,3 +19,4 @@ log/*
 .ruby-version
 database.yml
 *.swp
+.rvmrc
