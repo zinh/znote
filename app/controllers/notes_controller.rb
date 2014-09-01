@@ -1,5 +1,5 @@
 class NotesController < ApplicationController
-  before_filter :require_login
+  before_filter :require_login, except: [:view_share]
 
   def new
     content = params[:content]
