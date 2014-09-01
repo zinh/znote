@@ -32,8 +32,13 @@ class Note < ActiveRecord::Base
   # public this note
   def share
     if self.share_id.blank?
-      self.share_id = SecureRandom.urlsafe_base64(8)
-      self.save!
+      share_id = SecureRandom.urlsafe_base64(8)
+      # check if this id already exist
+      while Note.exists?(share_id: share_id)
+        share_id = SecureRandom.urlsafe_base64(8)
+      end
+      self.share_id = share_id
+      self.save
     end
 
     self.share_id
