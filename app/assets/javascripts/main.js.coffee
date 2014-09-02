@@ -1,13 +1,17 @@
 @share = (id)->
   jQuery.get "/note/#{id}/share", (data)->
-    link = "http://localhost:3000/share/#{data.id}"
-    $('#note_share').popover({
+    link = "/share/#{data.id}"
+    $('#note_share').popover(
       title: "Share link",
-      content: "<a href='#{link}' target='_blank'>#{link}</a>",
+      content: "<a href='#{link}' target='_blank'>http://localhost:3000#{link}</a>",
       placement: 'bottom',
       html: true
-    })
-    $('#note_share').popover('show')
+    )
+    jQuery('#note_share').popover('show')
+  jQuery('body').on 'click', (e)->
+    jQuery('#note_share').each ->
+      jQuery(this).popover('hide') if (!$(this).is(e.target) && $(this).has(e.target).length == 0 && $('.popover').has(e.target).length == 0)
+  return false
 
 @znote = angular.module 'znote', ['ngRoute', 'noteControllers', 'searchControllers']
 
