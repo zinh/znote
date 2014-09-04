@@ -1,9 +1,10 @@
 @share = (id)->
   jQuery.get "/note/#{id}/share", (data)->
     link = "/share/#{data.id}"
+    url = window.location.protocol + "//" + window.location.host + "/" + link
     $('#note_share').popover(
       title: "Share link",
-      content: "<a href='#{link}' target='_blank'>http://localhost:3000#{link}</a>",
+      content: "<a href='#{link}' target='_blank'>#{url}</a>",
       placement: 'bottom',
       html: true
     )
