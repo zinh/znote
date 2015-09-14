@@ -57,7 +57,7 @@
       $("#note_edit").attr("href", "#/note/#{data.id}/edit")
       $("#note_delete").attr("href", "#/note/#{data.id}/delete")
       $("#note_share").attr("onclick", "share(#{data.id})")
-      $('#content-holder').perfectScrollbar
+      $('#content-holder, .note-list').perfectScrollbar
         wheelSpeed: 20,
         wheelPropagation: false
       $rootScope.$broadcast('RELOAD_LATEST_NOTE', [data.id])
