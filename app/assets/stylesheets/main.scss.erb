@@ -1,6 +1,13 @@
 html, body {
   height: 100%;
-  min-height: 500px;
+  // min-height: 500px;
+  //font-family: Arial, Helvetica, sans-serif;
+  font-family: Tahoma, Geneva, sans-serif;
+}
+
+.znote-hhd {
+  position: relative;
+  overflow: hidden;
 }
 
 .note-content{
@@ -34,6 +41,7 @@ html, body {
 .search{
   width: 100%;
   border: 2px solid #ddd;
+  margin: 2px 0;
 }
 
 .note-list{
@@ -55,4 +63,16 @@ html, body {
 .home-container{
   padding-right: 0;
   padding-left: 5px;
+}
+
+// overwrite
+a.list-group-item.active,
+a.list-group-item.active:hover,
+a.list-group-item.active:focus,
+.list-group-item:last-child {
+  border-radius: 0;
+}
+
+.note-list .list-group {
+  margin-bottom: 0;
 }

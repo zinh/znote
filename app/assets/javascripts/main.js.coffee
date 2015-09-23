@@ -16,7 +16,7 @@
 
 @znote = angular.module 'znote', ['ngRoute', 'noteControllers', 'searchControllers']
 
-@znote.config ['$routeProvider', ($routeProvider) -> 
+@znote.config ['$routeProvider', ($routeProvider) ->
   $routeProvider.
     when('/note/view/:note_id', {
       templateUrl: '/partials/note_view',
@@ -59,7 +59,8 @@
       $("#note_share").attr("onclick", "share(#{data.id})")
       $('#content-holder, .note-list').perfectScrollbar
         wheelSpeed: 20,
-        wheelPropagation: false
+        wheelPropagation: false,
+        suppressScrollX: true
       $rootScope.$broadcast('RELOAD_LATEST_NOTE', [data.id])
     .error (data, status) ->
       alert(data)
@@ -69,7 +70,7 @@
   $("#note_edit").removeAttr("href")
   $("#note_delete").removeAttr("href")
   $("#note_share").removeAttr("onclick")
-  $scope.editorOptions = 
+  $scope.editorOptions =
     mode: 'markdown'
     theme: 'paraiso-light'
   $scope.saveNote = ->
@@ -84,7 +85,7 @@
 ]
 
 @noteCtrl.controller 'NoteEditCtrl', ['$scope', '$routeParams', '$http', '$location', '$rootScope', '$interval', ($scope, $routeParams, $http, $location, $rootScope, $interval) ->
-  $scope.editorOptions = 
+  $scope.editorOptions =
     mode: 'markdown'
     theme: 'paraiso-light'
     indentUnit: 4
