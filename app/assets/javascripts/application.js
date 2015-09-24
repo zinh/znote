@@ -15,4 +15,5 @@
 //= require ui-codemirror
 //= require jquery.mousewheel
 //= require perfect-scrollbar
+//= require hhd
 //= require_self
