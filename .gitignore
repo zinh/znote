@@ -20,3 +20,4 @@ log/*
 database.yml
 *.swp
 .rvmrc
+.rbenv-gemsets
