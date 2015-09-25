@@ -11,7 +11,7 @@ html, body {
 }
 
 .note-content{
-  background: url("<%= image_path 'packed-1.png' %>");
+  background: image-url("packed-1.png");
   padding-right: 3px;
 }
 

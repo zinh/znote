@@ -1,5 +1,5 @@
 .CodeRay {
-  background: url("<%= image_path 'packed-1.png' %>");
+  background: image-url("packed-1.png");
    // background-color: #FFF;
   // border: 1px solid #CCC;
   font-family: Monaco, "Courier New", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", monospace;
