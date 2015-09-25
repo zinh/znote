@@ -74,7 +74,7 @@
     mode: 'markdown'
     theme: 'paraiso-light'
   $scope.saveNote = ->
-    $http.post '/note/new', {title: $scope.noteTitle, content: $scope.noteContent}
+    $http.post '/note/new', {title: $scope.noteTitle, content: $scope.noteContent, authenticity_token: $("meta[name='csrf-token']")[0].content}
       .success (data, status) ->
         $rootScope.$broadcast('ROOT_CALLED')
         $location.path("/note/view/#{data.id}")
@@ -101,7 +101,7 @@
       $scope.noteContent = data.content
 
   $scope.saveNote = ->
-    $http.post '/note/edit', {id: $scope.noteId, title: $scope.noteTitle, content: $scope.noteContent}
+    $http.post '/note/edit', {id: $scope.noteId, title: $scope.noteTitle, content: $scope.noteContent, authenticity_token: $("meta[name='csrf-token']")[0].content}
       .success (data, status) ->
         $rootScope.$broadcast('ROOT_CALLED');
         $location.path("/note/view/#{data.id}")
@@ -113,7 +113,7 @@
 
   autoSave = $interval(
     ->
-      $http.post '/note/edit', {id: $scope.noteId, title: $scope.noteTitle, content: $scope.noteContent}
+      $http.post '/note/edit', {id: $scope.noteId, title: $scope.noteTitle, content: $scope.noteContent, authenticity_token: $("meta[name='csrf-token']")[0].content}
         .success (data, status) ->
           currentdate = new Date()
           $("#autosave").text("Autosave at " + currentdate.getHours() + ':' + currentdate.getMinutes())
@@ -175,7 +175,7 @@
 
   $scope.$watch 'searchText', (newVal, oldVal) ->
     if newVal.length > 3
-      $http.post '/note/search', {term: newVal}
+      $http.post '/note/search', {term: newVal, authenticity_token: $("meta[name='csrf-token']")[0].content}
         .success (data, status) ->
           $scope.results = data
     else
