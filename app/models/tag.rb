@@ -10,4 +10,8 @@
 #
 
 class Tag < ActiveRecord::Base
+  belongs_to :user
+  def notes
+    Note.where('tag_ids @> ARRAY[?]', self.id)
+  end
 end
