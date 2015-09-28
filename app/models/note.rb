@@ -10,6 +10,7 @@
 #  updated_at   :datetime
 #  content_html :text
 #  share_id     :string(255)
+#  tag_ids      :integer          default([]), is an Array
 #
 
 require 'redcarpet'
@@ -17,6 +18,7 @@ require 'securerandom'
 
 class Note < ActiveRecord::Base
   include PgSearch
+  belongs_to :notebook
   before_save :convert_markdown
   scope :user_limit, ->(user_id) { where(user_id: user_id) }
   # scope :free_search, ->(term) { where("title ILIKE :term OR content LIKE :term", term: "%#{term}%")}
@@ -42,6 +44,11 @@ class Note < ActiveRecord::Base
     end
 
     self.share_id
+  end
+
+  # List tags belong to a note
+  def tags
+    Tag.where(id: self.tag_ids)
   end
 
   class MarkdownRenderer < Redcarpet::Render::HTML
