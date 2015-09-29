@@ -1,0 +1,7 @@
+%form.height100
+  %input{type: 'text', placeholder: 'Title', style: 'width: 100%;margin-top: 10px;', 'ng-model' => 'noteTitle'}
+  <ui-codemirror ng-model='noteContent' ui-codemirror-opts="editorOptions" style="margin-top: 10px;height: 85%"></ui-codemirror>
+  %button.btn.btn-primary{'ng-click' => 'saveNote()'}
+    Save
+  %button.btn.btn-warning{'ng-click' => 'cancelNote()'}
+    Cancel

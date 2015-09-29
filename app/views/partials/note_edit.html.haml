@@ -1,0 +1,9 @@
+%form.height100
+  %input{type: 'hidden', 'ng-model' => 'noteId', "ng-value" => "noteId"}
+  %input{type: 'text', style: 'width: 100%;', 'ng-model' => 'noteTitle', "ng-value" => "noteTitle"}
+  <ui-codemirror ng-model='noteContent' ui-codemirror-opts="editorOptions" style="margin-top: 10px;height: 85%"></ui-codemirror>
+  %button.btn.btn-primary{'ng-click' => 'saveNote()'}
+    Save
+  %button.btn.btn-warning{'ng-click' => 'cancelEdit()'}
+    Cancel
+  %div#autosave

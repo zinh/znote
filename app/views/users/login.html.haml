@@ -1,0 +1,12 @@
+.fullscreen_bg#fullscreen_bg
+  .container.login-box
+    = form_tag(create_session_path, class: "form-signin", role: "form") do
+      %h2.form-signin-heading.text-muted
+        zNote
+      %input.form-control{type: "email", placeholder: "Email address", name: "email", required: "", autofocus: ""}
+      %input.form-control{type: "password", placeholder: "Password", name: "password", required: ""}
+      %label
+        %a{href: register_path}
+          Register here
+      %button.btn.btn-lg.btn-success.btn-block{type: 'submit'}
+        Login

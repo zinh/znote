@@ -1,10 +1,14 @@
 source 'https://rubygems.org'
 
+ruby "2.2.2"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.3'
+gem 'rails', '4.2.3'
 
 # Use mysql as the database for Active Record
-gem 'mysql2'
+# gem 'mysql2'
+
+gem 'pg'
+gem 'pg_search'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -14,9 +18,15 @@ gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
 
+gem 'haml'
+
+gem 'redcarpet'
+gem 'coderay'
+
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 group :development do
   gem 'therubyracer', platforms: :ruby
+  gem 'annotate'
 end
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -28,10 +38,11 @@ group :doc do
 end
 
 # Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.1.2'
+gem 'bcrypt-ruby', require: 'bcrypt'
 
 # Use unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'
+gem 'foreman'
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development

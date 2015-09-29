@@ -1,0 +1,78 @@
+html, body {
+  height: 100%;
+  // min-height: 500px;
+  //font-family: Arial, Helvetica, sans-serif;
+  font-family: Tahoma, Geneva, sans-serif;
+}
+
+.znote-hhd {
+  position: relative;
+  overflow: hidden;
+}
+
+.note-content{
+  background: image-url("packed-1.png");
+  padding-right: 3px;
+}
+
+.nav-no-padding{
+  padding-right: 0;
+  padding-left: 0;
+  position: relative;
+}
+
+.no-margin{
+  margin-bottom: 0;
+}
+
+.no-margin-left-right{
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.height100{
+  height: 100%;
+}
+
+.height90{
+  height: 94%;
+}
+
+.search{
+  width: 100%;
+  border: 2px solid #ddd;
+  margin: 2px 0;
+}
+
+.note-list{
+  background-color: rgba(255, 244, 198, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.note-list *{
+  background-color: rgba(255, 244, 198, 0.4);
+}
+
+.content-holder{
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+}
+
+.home-container{
+  padding-right: 0;
+  padding-left: 5px;
+}
+
+// overwrite
+a.list-group-item.active,
+a.list-group-item.active:hover,
+a.list-group-item.active:focus,
+.list-group-item:last-child {
+  border-radius: 0;
+}
+
+.note-list .list-group {
+  margin-bottom: 0;
+}

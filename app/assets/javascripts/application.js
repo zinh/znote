@@ -9,4 +9,11 @@
 //
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
-//
+//= require main
+//= require codemirror
+//= require markdown
+//= require ui-codemirror
+//= require jquery.mousewheel
+//= require perfect-scrollbar
+//= require hhd
+//= require_self

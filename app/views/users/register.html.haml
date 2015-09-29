@@ -1,0 +1,10 @@
+.fullscreen_bg#fullscreen_bg
+  .container.login-box
+    = form_tag(register_path, class: "form-signin", role: "form") do
+      %h2.form-signin-heading.text-muted
+        Register
+      %input.form-control{type: "email", placeholder: "Email", name: "user[email]", required: "", autofocus: ""}
+      %input.form-control{type: "password", placeholder: "Password", name: "user[password]", required: ""}
+      %input.form-control{type: "password", placeholder: "Password Again", name: "user[password_confirmation]", required: ""}
+      %button.btn.btn-lg.btn-success.btn-block.submit-btn{type: 'submit'}
+        Register
