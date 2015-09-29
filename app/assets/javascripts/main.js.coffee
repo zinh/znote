@@ -14,7 +14,7 @@
       jQuery(this).popover('hide') if (!$(this).is(e.target) && $(this).has(e.target).length == 0 && $('.popover').has(e.target).length == 0)
   return false
 
-@znote = angular.module 'znote', ['ngRoute', 'noteControllers', 'searchControllers']
+@znote = angular.module 'znote', ['ngRoute', 'noteControllers', 'searchControllers', 'notebookControllers']
 
 @znote.config ['$routeProvider', ($routeProvider) ->
   $routeProvider.
@@ -183,3 +183,5 @@
         .success (data, status) ->
           $scope.results = data
 ]
+
+@notebookControllers = angular.module 'notebookControllers', []
